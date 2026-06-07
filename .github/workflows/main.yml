@@ -27,10 +27,10 @@ jobs:
 
     # Paso 4: Iniciar sesión en Docker Hub
     - name: Iniciar sesión en Docker Hub
-      uses: docker/login-action@v2
+      uses: docker/login-action@v3
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_TOKEN }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     # Paso 5: Construir y publicar la imagen Docker
     - name: Construir y publicar imagen Docker
@@ -38,7 +38,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/gestion-pedidos:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/gestion-pedidos:latest
 
     # Paso 6: Desplegar en EC2 vía SSH
     - name: Desplegar en EC2
