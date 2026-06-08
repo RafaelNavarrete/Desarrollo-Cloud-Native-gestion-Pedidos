@@ -2,10 +2,11 @@ package com.duoc.gestion_pedidos.services;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import software.amazon.awssdk.auth.credentials.InstanceProfileCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
+
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.regions.Region;
 
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -31,11 +32,11 @@ public class S3Services {
 
     // Construye el cliente S3 utilizando las credenciales de la instancia EC2
     private S3Client getClient() {
-        return S3Client.builder()
-                .region(Region.of(region))
-                .credentialsProvider(InstanceProfileCredentialsProvider.create())
-                .build();
-    }
+    return S3Client.builder()
+            .region(Region.of(region))
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+}
 
     // Construye la ruta en la carpeta en S3: /fecha/transportista/
     private String buildKey(String fecha, String transportista, String nombreArchivo) {
