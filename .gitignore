@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Oracle Wallet
+wallet_gestionpedidos/
