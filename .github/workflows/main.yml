@@ -53,10 +53,14 @@ jobs:
           docker rm gestion-pedidos || true
           docker run -d --name gestion-pedidos \
             -v /mnt/efs:/app/efs \
+            -v /home/ec2-user/wallet_gestionPedidos:/wallet_gestionPedidos \
             -p 8080:8080 \
             -e AWS_REGION=us-east-1 \
             -e AWS_S3_BUCKET=${{ secrets.S3_BUCKET_NAME }} \
             -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
             -e AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }} \
+            -e SPRING_DATASOURCE_URL="jdbc:oracle:thin:@gestionpedidos_medium?TNS_ADMIN=/wallet_gestionPedidos" \
+            -e SPRING_DATASOURCE_USERNAME=ADMIN \
+            -e SPRING_DATASOURCE_PASSWORD=GestionPedidos2026! \
             ${{ secrets.DOCKERHUB_USERNAME }}/gestion-pedidos:latest
